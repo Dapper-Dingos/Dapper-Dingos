@@ -43,8 +43,8 @@
 	<![endif]-->
 </head>
 
-<body class="ng-cloak">
-	<header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
+<body class="ng-cloak" style='width:100%;'>
+	<header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-left"></header>
 	<section class="content">
 		<section class="container">
 			{% block content %}{% endblock %}
@@ -72,5 +72,10 @@
 
 </body>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script type="text/javascript">
+		$( window ).scroll(function() {
 
+			console.log(arguments)
+		});
+	</script>
 </html>
