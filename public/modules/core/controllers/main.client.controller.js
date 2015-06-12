@@ -2,28 +2,41 @@
 
 angular.module('core')
 
-.controller('mainController', ['$scope', 'Menus', function($scope, Menus) {
-		$scope.isCollapsed = false;
-		$scope.menu = Menus.getMenu('topbar');
+.controller('mainController', ['$scope', '$http', 'Menus', function($scope, $http, Menus) {
+    
+	$scope.isCollapsed = false;
+	$scope.menu = Menus.getMenu('topbar');
+	$scope.chatrooms;
+	
 
-		$scope.ytQuery = '';
+	$scope.searches = [];
+	$scope.ytQuery = '';
+	$scope.queuedVideos = ['title1', 'title2', 'title3', 'title4', 'title5', 'title6', 'title7', 'title8', 'title9'];
 
-		//#DD input box function for taking the submitted string and parsing into a videoKey.
-		$scope.ytSearcher = function(){
 
-			var video_id = $scope.ytQuery.split('v=')[1];
-			console.log(video_id, $scope.ytQuery)
-				if(video_id.indexOf('&') !== -1) {
-				var ampersandPosition = video_id.indexOf('&');
-				  video_id = video_id.substring(0, ampersandPosition);
-				} else {
-				  video_id = video_id.substring(0, video_id.length);
-				}
-				
-				var socket = io.connect();
-				// #DD triggers url change via sockets, sends videoID as data
-				socket.emit('changingUrl', video_id)
-		}
+
+	var socket = io.connect();
+    socket.emit('pageLoad', 'TestUser')
+    socket.on('sendingRooms', function(rooms) {
+      $scope.rooms = rooms
+
+    })
+
+    socket.on('addToQueue', function(video) {
+      console.log('main.client.controller.js: ADDTOQUEUE', video.snippet.title)
+      $scope.queuedVideos.push(video.snippet.title)
+      console.log($scope.queuedVideos)
+      $scope.$apply();
+    })
+    $scope.sendMessage = function () {
+      
+      socket.emit('newMessage', chatMessage);
+      $scope.message = '';
+    };
+
+
+
+    //#DD input box function for taking the submitted string and parsing into a videoKey.
 
 	}])
 
@@ -106,7 +119,6 @@ angular.module('core')
 
 	      // #DD socket trigger for changing URL
 				socket.on('changeVid', function(urlKey){
-					console.log('changing video Url')
 					// #DDyoutube API function for cueing new video
 					player.cueVideoByUrl({ mediaContentUrl: 'http://www.youtube.com/v/' + urlKey + '?version=5'})
 					console.log('loading new Url')
