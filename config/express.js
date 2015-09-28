@@ -174,7 +174,8 @@
     // #DD create Schema for messages
     var chatMessage = new mongoose.Schema({
     	username: String,
-    	message: String
+    	message: String,
+        time : { type : Date, default: Date.now }
     });
 
     var Message = mongoose.model('Message', chatMessage);
@@ -186,18 +187,15 @@
 
         //socket function for starting video #DD
         socket.on('initiate', function (data) {
-        	console.log('relaying player start')
         	io.emit('startVid');
         });
 
         //socket function for pausing #DD
         socket.on('paused', function (data) {
-        	console.log('relaying pause')
         	io.emit('pauseVid');
         });
         //socket function for changing video #DD
         socket.on('changingUrl', function (url, error) {
-        	console.log('relaying new Url')
         	io.emit('changeVid', url);
         });
 
@@ -206,24 +204,20 @@
         		if (err) {
         			return console.error(err)
         		}
-        		console.log('finding all messages with GetUsers')
         		io.emit('pastMessages', allMessages);
         	});
         });
 
 
         socket.on('newMessage', function (message) {
-        	console.log(message, 'before function');
         	Message.create(message, function (err, message) {
         		if (err) {
         			return console.error(err);
         		}
-        		console.log('posting to messages', message);
         		Message.find(function (err, allMessages) {
         			if (err) {
         				return console.error(err);
         			}
-        			console.log('finding all messages with newMessage');
         			io.emit('pastMessages', allMessages);
         		});
         	});
