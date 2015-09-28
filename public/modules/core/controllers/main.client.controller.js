@@ -12,7 +12,6 @@ angular.module('core')
 		$scope.ytSearcher = function(){
 
 			var video_id = $scope.ytQuery.split('v=')[1];
-			console.log(video_id, $scope.ytQuery)
 				if(video_id.indexOf('&') !== -1) {
 				var ampersandPosition = video_id.indexOf('&');
 				  video_id = video_id.substring(0, ampersandPosition);
@@ -38,21 +37,17 @@ angular.module('core')
 	// If player is Playing #DD
 			if (event.data === 1 && !window.hold) {
 				window.hold = true;
-				console.log('Youtube object: ' + JSON.stringify(window.j))
-				console.log(event)
-				socket.emit('initiate', console.log('sending that its time to play!'));	
+				socket.emit('initiate');	
 			}
 
 	//If Player is paused #DD
 			if (event.data === 2 && !window.hold) {
 				window.hold = true;
-				console.log('paused')
-				socket.emit('paused', console.log('sending that video has been paused!'));
+				socket.emit('paused');
 				}
 			},
 
 			onPlayerReady: function(event){
-		   	console.log('player ready')
 		}
 	}
 })
@@ -83,33 +78,26 @@ angular.module('core')
 
 	      // #DD socket trigger for Starting Vid
 	      socket.on('startVid', function(){
-    			console.log('startingVid')
     			player.playVideo();
     			window.hold = false;
-    			console.log('playing video')
  				});
 
 	      // #DD socket trigger for Pausing Vid
 	      socket.on('pauseVid', function(){
-    			console.log('pausingVid')
     			player.pauseVideo();
     			window.hold = false;
-    			console.log('stopping video')
  				});
 
 	      // #DD socket trigger for Changing Videotime
  				socket.on('changeTime', function(newTime){
- 					console.log('changingTime');
  					player.seekTo({seconds:newTime, allowSeekAhead:true})
  					window.hold = false;
  				})
 
 	      // #DD socket trigger for changing URL
 				socket.on('changeVid', function(urlKey){
-					console.log('changing video Url')
 					// #DDyoutube API function for cueing new video
 					player.cueVideoByUrl({ mediaContentUrl: 'http://www.youtube.com/v/' + urlKey + '?version=5'})
-					console.log('loading new Url')
 				})
 
 	      $window.onYouTubeIframeAPIReady = function() {
