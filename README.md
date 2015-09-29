@@ -1,5 +1,11 @@
 
-Stream Team: A Dapper Dingos Joint
+###Stream Team
+
+## Team
+
+  - __Product Owner__: Charlie Harding
+  - __Scrum Master__: Dan Corman
+  - __Development Team Members__: Garrett Fitzgerald and Robert Snodgrass
 
 ![alt tag](http://i62.tinypic.com/2vxmzdc.jpg)
 
