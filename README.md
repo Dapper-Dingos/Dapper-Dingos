@@ -1,37 +1,5 @@
 
 Stream Team: A Dapper Dingos Joint
-=======
-#DD                                           #DD
-|-----------------------------------------------|
-|---------- WELCOME MEDDLESOME MULES -----------|   Hey friends - below is a short map to our app!
-|-----------------------------------------------|
-#DD                                           #DD
-  
-
-
-First off - know that we used a MEAN js yeoman scaffold. This is why there are so many directories/files.
-
-  Directories/files with significant changes (probably not all inclusive but it should get you started):
-
-   - config/express.js - this is where socket.io connections are made with the server instance
-
-   - config/development.js - this is where the mongolab database url is tied in to the server
-
-   - public/modules/controllers/(chat & main) - this is where the chat controller lies
-
-   - public/modules/views - has html for page/chat
-
-   - public/modules/users/config/users.client.routes.js - contains routes
-
-
-  Many comments in the code are from the yeoman boilerplate.
-  Comments beginning or ending with #DD ( aka HASHTAG DEE DEE ) have been added by us - they should mark the areas that we have modified the boilerplate or added in new content
-   
-  
-
---------------------------------------------------------------------------------------
-
-[![MEAN.JS Logo](http://meanjs.org/img/logo-small.png)](http://meanjs.org/)
 
 ![alt tag](http://i62.tinypic.com/2vxmzdc.jpg)
 
